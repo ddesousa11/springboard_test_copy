@@ -43,7 +43,7 @@ public class PostHistoryController {
     }
 
     @RequestMapping(value = "/delete")
-    public String deletePost(@RequestParam("post_text") String deleteText, 
+    public String deletePost(@RequestParam("post_text") String deleteText,
     				Model model) {
 	   	model.addAttribute("title", "Delete Page");
 	   	String pathToLogFile = env.getProperty("post.log.file");
@@ -57,5 +57,21 @@ public class PostHistoryController {
         return "delete";
     }
 
+
+    @RequestMapping(value = "/search")
+    public String searchPost(@RequestParam("search_text") String inputText,
+                             Model model) {
+        model.addAttribute("title","Search Page");
+        String pathToLoggFile = env.getProperty("post.log.file");
+        PostLogger pl = new PostLogger(pathToLoggFile);
+        if (!inputText.isEmpty())
+        {
+            String content = pl.searchString(inputText);
+            model.addAttribute("content", content);
+            model.addAttribute("searchAttempted", true);
+        }
+
+        return "search";
+    }
 }
 

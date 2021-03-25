@@ -93,4 +93,31 @@ public class PostLogger {
             return false;
 		}
     }
+
+    public String searchString(String toFind){
+        //boolean delete = false;
+        String content = "";
+        try {
+
+            File file1 = new File(filePath);
+            FileReader fr1 = new FileReader(file1);
+            BufferedReader r1 = new BufferedReader(fr1);
+
+            String line = r1.readLine();
+            while (line != null) {
+                String trimmedLine = line.trim();
+                String toFindTrimmed = toFind.trim();
+                if (trimmedLine.contains(toFindTrimmed)) {
+                    content += line + "\n";
+                }
+                line = r1.readLine();
+            }
+            r1.close();
+            fr1.close();
+            return content;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "No matches found";
+        }
+    }
 }
