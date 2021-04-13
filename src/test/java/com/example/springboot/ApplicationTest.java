@@ -31,6 +31,6 @@ class ApplicationTest {
     void testCaseSensitivity() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.post("/api?post_input_text=strawberries")).andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post("/delete?post_text=Strawberries").contentType(MediaType.ALL))
-                .andExpect(content().string(containsString("has been deleted")));
+                .andExpect(content().string(not(containsString("has been deleted"))));
     }
 }
